@@ -2,7 +2,7 @@ package rs.bane.alati.server.service;
 
 import java.util.List;
 
-import rs.bane.alati.server.model.radnik.Worker;
+import rs.bane.alati.server.model.worker.Worker;
 
 public interface WorkerService {
 	Worker findOne(Long id);

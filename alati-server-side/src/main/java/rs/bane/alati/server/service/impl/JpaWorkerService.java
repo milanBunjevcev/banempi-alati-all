@@ -1,14 +1,15 @@
 package rs.bane.alati.server.service.impl;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rs.bane.alati.server.model.radnik.Worker;
-import rs.bane.alati.server.model.radnik.Worker.ContractType;
+import rs.bane.alati.server.model.worker.Worker;
+import rs.bane.alati.server.model.worker.Worker.ContractType;
 import rs.bane.alati.server.repository.WorkerRepository;
 import rs.bane.alati.server.service.WorkerService;
 
@@ -69,10 +70,20 @@ public class JpaWorkerService implements WorkerService {
 		return workerRepository.findByNameAndLastName(name, lastName);
 	}
 
-	// @PostConstruct
+	//@PostConstruct
 	public void init() {
 		save(new Worker("Milan", "Bunjevcev", ContractType.CONTRACT_3_MONTHS));
 		save(new Worker("Slobodan", "Bacic", ContractType.NO_CONTRACT));
+
+		Random rnd = new Random();
+		for (int i = 1; i <= 100; i++) {
+			int n = rnd.nextInt(Worker.ContractType.values().length);
+			String ime = "Ime-" + i;
+			String prezime = "Prezime-" + i;
+			Worker.ContractType ugovor = Worker.ContractType.values()[n];
+
+			save(new Worker(ime, prezime, ugovor));
+		}
 	}
 
 }

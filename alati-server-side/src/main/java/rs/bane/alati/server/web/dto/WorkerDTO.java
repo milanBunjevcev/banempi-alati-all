@@ -1,6 +1,6 @@
 package rs.bane.alati.server.web.dto;
 
-import rs.bane.alati.server.model.radnik.Worker.ContractType;
+import rs.bane.alati.server.model.worker.Worker.ContractType;
 
 public class WorkerDTO {
 

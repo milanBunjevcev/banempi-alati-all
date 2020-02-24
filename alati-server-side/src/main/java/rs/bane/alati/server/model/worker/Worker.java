@@ -1,4 +1,4 @@
-package rs.bane.alati.server.model.radnik;
+package rs.bane.alati.server.model.worker;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

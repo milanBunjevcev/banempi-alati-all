@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import rs.bane.alati.server.model.radnik.Worker;
+import rs.bane.alati.server.model.worker.Worker;
 
 @Repository
 public interface WorkerRepository extends JpaRepository<Worker, Long> {
