@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import rs.bane.alati.server.model.worker.Worker;
+import rs.bane.alati.server.model.Worker;
 import rs.bane.alati.server.service.WorkerService;
 import rs.bane.alati.server.support.WorkerDTOToWorker;
 import rs.bane.alati.server.support.WorkerToWorkerDTO;

@@ -8,8 +8,8 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import rs.bane.alati.server.model.worker.Worker;
-import rs.bane.alati.server.model.worker.Worker.ContractType;
+import rs.bane.alati.server.model.Worker;
+import rs.bane.alati.server.model.Worker.ContractType;
 import rs.bane.alati.server.repository.WorkerRepository;
 import rs.bane.alati.server.service.WorkerService;
 

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import rs.bane.alati.server.model.worker.Worker;
+import rs.bane.alati.server.model.Worker;
 import rs.bane.alati.server.web.dto.WorkerDTO;
 
 @Component
