@@ -1,13 +1,18 @@
 package rs.bane.alati.server.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "tbl_worker")
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "lastName" }, name = "uniqueWorker") })
 public class Worker {
 
 	public enum ContractType {
@@ -17,12 +22,16 @@ public class Worker {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column
+	@Column(nullable = false)
 	private String name;
-	@Column(name = "last_name")
+	@Column(nullable = false)
 	private String lastName;
-	@Column(name = "contract_type")
+	@Column(nullable = false)
+	@Enumerated
 	private ContractType contractType;
+
+	@ManyToMany(mappedBy = "workers")
+	private List<Production> productions;
 
 	public Worker() {
 

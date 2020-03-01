@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,12 +33,6 @@ public class ApiWorkerController {
 
 	@Autowired
 	private WorkerDTOToWorker toWorker;
-
-//	@RequestMapping(method = RequestMethod.GET)
-//	ResponseEntity<List<WorkerDTO>> getWorkers() {
-//		List<Worker> workers = workerService.findAll();
-//		return new ResponseEntity<List<WorkerDTO>>(toDTO.convert(workers), HttpStatus.OK);
-//	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	ResponseEntity<List<WorkerDTO>> getWorkers(@RequestParam(value = "name", required = false) String name,
@@ -99,11 +95,9 @@ public class ApiWorkerController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "*")
-	ResponseEntity<List<WorkerDTO>> fallback() {
-
-		return new ResponseEntity<List<WorkerDTO>>(HttpStatus.NOT_FOUND);
-
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	public ResponseEntity<Void> handle() {
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 }

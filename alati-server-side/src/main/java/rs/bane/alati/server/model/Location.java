@@ -1,32 +1,38 @@
 package rs.bane.alati.server.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class Lokacija {
+public class Location {
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(name = "naziv_lokacije")
-	private String nazivLokacije;
+	@Column(unique = true, nullable = false)
+	private String name;
 
-	public Lokacija() {
+	@OneToMany(mappedBy = "location")
+	private List<Production> productions;
+
+	public Location() {
 
 	}
 
-	public Lokacija(String nazivLokacije) {
-		this.nazivLokacije = nazivLokacije;
+	public Location(String name) {
+		this.name = name;
 	}
 
-	public Lokacija(Long id, String nazivLokacije) {
+	public Location(Long id, String name) {
 		this.id = id;
-		this.nazivLokacije = nazivLokacije;
+		this.name = name;
 	}
 
 	@Override
@@ -37,7 +43,7 @@ public class Lokacija {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Lokacija other = (Lokacija) obj;
+		Location other = (Location) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -54,12 +60,12 @@ public class Lokacija {
 		this.id = id;
 	}
 
-	public String getNazivLokacije() {
-		return nazivLokacije;
+	public String getName() {
+		return name;
 	}
 
-	public void setNazivLokacije(String nazivLokacije) {
-		this.nazivLokacije = nazivLokacije;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
