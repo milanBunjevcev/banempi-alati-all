@@ -1,11 +1,14 @@
 package rs.bane.alati.server.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -45,9 +48,9 @@ public class Production {
 	@Temporal(TemporalType.DATE)
 	private Date datumUcinka;
 
-	@ManyToMany
-	@JoinTable(uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "productions_id", "workers_id" }, name = "uniqueRelation") })
+	// TODO proveriti da li radi cascade as intended
+	@ManyToMany(mappedBy = "productions", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
 	private List<Worker> workers;
 
 	@ManyToOne
@@ -57,5 +60,173 @@ public class Production {
 	private Timestamp vremeUnosaUcinka;
 	@Column
 	private String uneoKorisnik;
+
+	public Production() {
+
+	}
+
+	public Production(int brrn, int broj, String nazivOperacije, double norma, String nazivArtikla,
+			String kataloskiBroj, double proizvedenoKolicina, double utrosenoVreme, String napomena, Date datumUcinka,
+			Location location, Timestamp vremeUnosaUcinka, String uneoKorisnik) {
+		super();
+		this.brrn = brrn;
+		this.broj = broj;
+		this.nazivOperacije = nazivOperacije;
+		this.norma = norma;
+		this.nazivArtikla = nazivArtikla;
+		this.kataloskiBroj = kataloskiBroj;
+		this.proizvedenoKolicina = proizvedenoKolicina;
+		this.utrosenoVreme = utrosenoVreme;
+		this.napomena = napomena;
+		this.datumUcinka = datumUcinka;
+		this.workers = workers;
+		this.location = location;
+		this.vremeUnosaUcinka = vremeUnosaUcinka;
+		this.uneoKorisnik = uneoKorisnik;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Production other = (Production) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public int getBrrn() {
+		return brrn;
+	}
+
+	public void setBrrn(int brrn) {
+		this.brrn = brrn;
+	}
+
+	public int getBroj() {
+		return broj;
+	}
+
+	public void setBroj(int broj) {
+		this.broj = broj;
+	}
+
+	public String getNazivOperacije() {
+		return nazivOperacije;
+	}
+
+	public void setNazivOperacije(String nazivOperacije) {
+		this.nazivOperacije = nazivOperacije;
+	}
+
+	public double getNorma() {
+		return norma;
+	}
+
+	public void setNorma(double norma) {
+		this.norma = norma;
+	}
+
+	public String getNazivArtikla() {
+		return nazivArtikla;
+	}
+
+	public void setNazivArtikla(String nazivArtikla) {
+		this.nazivArtikla = nazivArtikla;
+	}
+
+	public String getKataloskiBroj() {
+		return kataloskiBroj;
+	}
+
+	public void setKataloskiBroj(String kataloskiBroj) {
+		this.kataloskiBroj = kataloskiBroj;
+	}
+
+	public double getProizvedenoKolicina() {
+		return proizvedenoKolicina;
+	}
+
+	public void setProizvedenoKolicina(double proizvedenoKolicina) {
+		this.proizvedenoKolicina = proizvedenoKolicina;
+	}
+
+	public double getUtrosenoVreme() {
+		return utrosenoVreme;
+	}
+
+	public void setUtrosenoVreme(double utrosenoVreme) {
+		this.utrosenoVreme = utrosenoVreme;
+	}
+
+	public String getNapomena() {
+		return napomena;
+	}
+
+	public void setNapomena(String napomena) {
+		this.napomena = napomena;
+	}
+
+	public Date getDatumUcinka() {
+		return datumUcinka;
+	}
+
+	public void setDatumUcinka(Date datumUcinka) {
+		this.datumUcinka = datumUcinka;
+	}
+
+	public List<Worker> getWorkers() {
+		return workers;
+	}
+
+	public void setWorkers(List<Worker> workers) {
+		this.workers = workers;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
+	public Timestamp getVremeUnosaUcinka() {
+		return vremeUnosaUcinka;
+	}
+
+	public void setVremeUnosaUcinka(Timestamp vremeUnosaUcinka) {
+		this.vremeUnosaUcinka = vremeUnosaUcinka;
+	}
+
+	public String getUneoKorisnik() {
+		return uneoKorisnik;
+	}
+
+	public void setUneoKorisnik(String uneoKorisnik) {
+		this.uneoKorisnik = uneoKorisnik;
+	}
+
+	public void addWorker(Worker worker) {
+		this.workers.add(worker);
+		if (!worker.getProductions().contains(this)) {
+			worker.getProductions().add(this);
+		}
+	}
 
 }

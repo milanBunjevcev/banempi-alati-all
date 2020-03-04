@@ -1,12 +1,15 @@
 package rs.bane.alati.server.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -30,7 +33,9 @@ public class Worker {
 	@Enumerated
 	private ContractType contractType;
 
-	@ManyToMany(mappedBy = "workers")
+	@ManyToMany(fetch = FetchType.LAZY) // (mappedBy = "workers")
+//	@JoinTable(uniqueConstraints = {
+//			@UniqueConstraint(columnNames = { "productions_id", "workers_id" }, name = "uniqueRelation") })
 	private List<Production> productions;
 
 	public Worker() {
@@ -99,6 +104,21 @@ public class Worker {
 
 	public void setContractType(ContractType contractType) {
 		this.contractType = contractType;
+	}
+
+	public List<Production> getProductions() {
+		return productions;
+	}
+
+	public void setProductions(List<Production> productions) {
+		this.productions = productions;
+	}
+
+	public void addProduction(Production prod) {
+		this.getProductions().add(prod);
+		if (!prod.getWorkers().contains(this)) {
+			prod.getWorkers().add(this);
+		}
 	}
 
 }
