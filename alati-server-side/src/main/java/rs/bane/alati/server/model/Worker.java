@@ -14,6 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "lastName" }, name = "uniqueWorker") })
 public class Worker {
@@ -33,9 +36,7 @@ public class Worker {
 	@Enumerated
 	private ContractType contractType;
 
-	@ManyToMany(fetch = FetchType.LAZY) // (mappedBy = "workers")
-//	@JoinTable(uniqueConstraints = {
-//			@UniqueConstraint(columnNames = { "productions_id", "workers_id" }, name = "uniqueRelation") })
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "workers")
 	private List<Production> productions;
 
 	public Worker() {
@@ -115,7 +116,7 @@ public class Worker {
 	}
 
 	public void addProduction(Production prod) {
-		this.getProductions().add(prod);
+		this.productions.add(prod);
 		if (!prod.getWorkers().contains(this)) {
 			prod.getWorkers().add(this);
 		}

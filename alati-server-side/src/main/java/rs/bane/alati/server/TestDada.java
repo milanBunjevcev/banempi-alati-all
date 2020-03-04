@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import rs.bane.alati.server.model.Location;
 import rs.bane.alati.server.model.Production;
 import rs.bane.alati.server.model.Worker;
+import rs.bane.alati.server.repository.ProductionRepository;
+import rs.bane.alati.server.repository.WorkerRepository;
 import rs.bane.alati.server.service.LocationService;
 import rs.bane.alati.server.service.ProductionService;
 import rs.bane.alati.server.service.WorkerService;
@@ -28,6 +30,12 @@ public class TestDada {
 
 	@Autowired
 	private ProductionService productionService;
+	
+	@Autowired
+	private WorkerRepository workerRepository;
+	
+	@Autowired
+	private ProductionRepository productionRepository;
 
 	@PostConstruct
 	public void init() {
@@ -57,13 +65,17 @@ public class TestDada {
 
 	private void uradi() {
 				
-		Worker worker = workerService.findOne(2L);
-		Production prod = productionService.findOne(1L);
+		Worker worker = workerRepository.findOne(2L);
+		Production prod = productionRepository.findOne(1L);
 
-		worker.addProduction(prod);
+		//worker.addProduction(prod);
 		prod.addWorker(worker);
 
-		workerService.save(worker);
-		productionService.save(prod);
+		productionRepository.save(prod);
+		//workerRepository.save(worker);
+		
+		
+		//productionRepository.delete(1L);
+		
 	}
 }

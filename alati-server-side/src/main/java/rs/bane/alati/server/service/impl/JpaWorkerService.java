@@ -2,6 +2,8 @@ package rs.bane.alati.server.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import rs.bane.alati.server.repository.WorkerRepository;
 import rs.bane.alati.server.service.WorkerService;
 
 @Service
+@Transactional
 public class JpaWorkerService implements WorkerService {
 
 	@Autowired

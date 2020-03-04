@@ -49,8 +49,9 @@ public class Production {
 	private Date datumUcinka;
 
 	// TODO proveriti da li radi cascade as intended
-	@ManyToMany(mappedBy = "productions", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "productions_id", "workers_id" }, name = "uniqueRelation") })
 	private List<Worker> workers;
 
 	@ManyToOne
@@ -79,7 +80,6 @@ public class Production {
 		this.utrosenoVreme = utrosenoVreme;
 		this.napomena = napomena;
 		this.datumUcinka = datumUcinka;
-		this.workers = workers;
 		this.location = location;
 		this.vremeUnosaUcinka = vremeUnosaUcinka;
 		this.uneoKorisnik = uneoKorisnik;
@@ -224,8 +224,9 @@ public class Production {
 
 	public void addWorker(Worker worker) {
 		this.workers.add(worker);
-		if (!worker.getProductions().contains(this)) {
-			worker.getProductions().add(this);
+		List<Production> prodList = worker.getProductions();
+		if (!prodList.contains(this)) {
+			prodList.add(this);
 		}
 	}
 
