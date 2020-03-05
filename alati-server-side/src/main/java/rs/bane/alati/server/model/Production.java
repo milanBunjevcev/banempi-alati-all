@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +29,7 @@ public class Production {
 	private int brrn;
 	@Column
 	private int broj;
-	@Column
+	@Column(nullable = false)
 	private String nazivOperacije;
 	@Column
 	private double norma;
@@ -44,20 +43,20 @@ public class Production {
 	private double utrosenoVreme;
 	@Column
 	private String napomena;
-	@Column
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date datumUcinka;
 
-	// TODO proveriti da li radi cascade as intended
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "productions_id", "workers_id" }, name = "uniqueRelation") })
-	private List<Worker> workers;
+			@UniqueConstraint(columnNames = { "production_id", "workers_id" }, name = "uniqueRelation") })
+	private List<Worker> workers = new ArrayList<Worker>();
 
+	@Column(nullable = false)
 	@ManyToOne
 	private Location location;
 
-	@Column
+	@Column(nullable = false)
 	private Timestamp vremeUnosaUcinka;
 	@Column
 	private String uneoKorisnik;
@@ -224,10 +223,6 @@ public class Production {
 
 	public void addWorker(Worker worker) {
 		this.workers.add(worker);
-		List<Production> prodList = worker.getProductions();
-		if (!prodList.contains(this)) {
-			prodList.add(this);
-		}
 	}
 
 }

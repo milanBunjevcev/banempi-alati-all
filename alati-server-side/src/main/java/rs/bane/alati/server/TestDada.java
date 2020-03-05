@@ -1,7 +1,6 @@
 package rs.bane.alati.server;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Component;
 import rs.bane.alati.server.model.Location;
 import rs.bane.alati.server.model.Production;
 import rs.bane.alati.server.model.Worker;
-import rs.bane.alati.server.repository.ProductionRepository;
-import rs.bane.alati.server.repository.WorkerRepository;
 import rs.bane.alati.server.service.LocationService;
 import rs.bane.alati.server.service.ProductionService;
 import rs.bane.alati.server.service.WorkerService;
@@ -30,12 +27,6 @@ public class TestDada {
 
 	@Autowired
 	private ProductionService productionService;
-	
-	@Autowired
-	private WorkerRepository workerRepository;
-	
-	@Autowired
-	private ProductionRepository productionRepository;
 
 	@PostConstruct
 	public void init() {
@@ -57,25 +48,10 @@ public class TestDada {
 
 		Production prod1 = new Production(82321, 20, "oper1", 230, "naziv art", "1301", 222, 8, "", new Date(),
 				location, new Timestamp(new Date().getTime()), "milan");
-		prod1.setWorkers(new ArrayList<Worker>());
+		Worker worker = workerService.findOne(2L);
+		prod1.addWorker(worker);
 		productionService.save(prod1);
 
-		uradi();
 	}
 
-	private void uradi() {
-				
-		Worker worker = workerRepository.findOne(2L);
-		Production prod = productionRepository.findOne(1L);
-
-		//worker.addProduction(prod);
-		prod.addWorker(worker);
-
-		productionRepository.save(prod);
-		//workerRepository.save(worker);
-		
-		
-		//productionRepository.delete(1L);
-		
-	}
 }
