@@ -1,0 +1,79 @@
+<html>
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<script src="/assets/js/angular.js" type="text/javascript"></script>
+	<script src="/assets/js/angular-route.js" type="text/javascript"></script>
+	<script src="/app/js/main.js" type="text/javascript"></script>
+	<script src="/app/js/home.js" type="text/javascript"></script>
+	<script src="/app/js/workers.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="/assets/css/bootstrap.css">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<style>
+		#topMeni .nav-link.active {
+			color: #fff;
+			background-color: #5e5f5f;
+		}
+
+		#topMeni a.nav-link {
+			color: rgb(160, 160, 158);
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div ng-app="baneApp">
+
+		<div id="topMeni" ng-controller="Ctrl">
+
+			<nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
+				<a class="navbar-brand" href="/#!/">Meni</a>
+				<div>
+					<ul class="nav nav-pills" bs-active-link>
+						<li class="nav-item">
+							<a class="nav-link" href="/#!/workers">Radnici</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/#!/test">Test</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+		</div>
+
+		<div class="container" style="margin-top: 75px;">
+
+			<div ng-view>
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="/assets/js/bootstrap.js" type="text/javascript"></script>
+
+	<!-- 	<script>
+	 $(".nav .nav-link").on("click", function () {
+	 $(".nav").find(".active").removeClass("active");
+	 $(this).addClass("active");
+	 });
+		</script> -->
+</body>
+
+</html>

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import rs.bane.alati.server.model.Worker;
@@ -24,18 +26,13 @@ public class JpaWorkerService implements WorkerService {
 	}
 
 	@Override
-	public List<Worker> findAll() {
-		return workerRepository.findAll();
+	public Page<Worker> findAll(int pageNum, int rowsPerPage) {
+		return workerRepository.findAll(new PageRequest(pageNum, rowsPerPage));
 	}
 
 	@Override
 	public Worker save(Worker worker) {
 		return workerRepository.save(worker);
-	}
-
-	@Override
-	public List<Worker> save(List<Worker> workers) {
-		return workerRepository.save(workers);
 	}
 
 	@Override
@@ -55,18 +52,17 @@ public class JpaWorkerService implements WorkerService {
 	}
 
 	@Override
-	public List<Worker> findByName(String name) {
-		return workerRepository.findByName(name);
-	}
-
-	@Override
-	public List<Worker> findByLastName(String lastName) {
-		return workerRepository.findByLastName(lastName);
-	}
-
-	@Override
-	public List<Worker> findByNameAndLastName(String name, String lastName) {
-		return workerRepository.findByNameAndLastName(name, lastName);
+	public Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, int pageNum, int rowsPerPage) {
+		String[] tokens = nameOrLastName.split(" ");
+		String name = null;
+		String lastName = null;
+		if (tokens.length == 1) {
+			name = "%" + tokens[0] + "%";
+		} else {
+			name = "%" + tokens[0] + "%";
+			lastName = "%" + tokens[1] + "%";
+		}
+		return workerRepository.findByNameLikeAndLastNameLike(name, lastName, new PageRequest(pageNum, rowsPerPage));
 	}
 
 }

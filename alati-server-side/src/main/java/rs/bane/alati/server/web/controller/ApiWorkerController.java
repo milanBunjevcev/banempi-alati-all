@@ -1,10 +1,11 @@
 package rs.bane.alati.server.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,20 +36,23 @@ public class ApiWorkerController {
 	private WorkerDTOToWorker toWorker;
 
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<WorkerDTO>> getWorkers(@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "lastname", required = false) String lastName) {
+	ResponseEntity<List<WorkerDTO>> getWorkers(
+			@RequestParam(value = "nameOrLastName", required = false) String nameOrLastName,
+			@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+			@RequestParam(value = "rowsPerPage", defaultValue = "1") int rowsPerPage) {
 
-		List<Worker> workers = new ArrayList<Worker>();
-		if (name != null && lastName != null) {
-			workers = workerService.findByNameAndLastName(name, lastName);
-		} else if (name != null) {
-			workers = workerService.findByName(name);
-		} else if (lastName != null) {
-			workers = workerService.findByLastName(lastName);
+		Page<Worker> workerPage = null;
+
+		if (nameOrLastName != null) {
+			workerPage = workerService.findByNameLikeAndLastNameLike(nameOrLastName, pageNum, rowsPerPage);
 		} else {
-			workers = workerService.findAll();
+			workerPage = workerService.findAll(pageNum, rowsPerPage);
 		}
-		return new ResponseEntity<List<WorkerDTO>>(toDTO.convert(workers), HttpStatus.OK);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("totalPages", Integer.toString(workerPage.getTotalPages()));
+
+		return new ResponseEntity<List<WorkerDTO>>(toDTO.convert(workerPage.getContent()), headers, HttpStatus.OK);
 
 	}
 

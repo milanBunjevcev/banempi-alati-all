@@ -52,8 +52,7 @@ public class Production {
 			@UniqueConstraint(columnNames = { "production_id", "workers_id" }, name = "uniqueRelation") })
 	private List<Worker> workers = new ArrayList<Worker>();
 
-	@Column(nullable = false)
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Location location;
 
 	@Column(nullable = false)

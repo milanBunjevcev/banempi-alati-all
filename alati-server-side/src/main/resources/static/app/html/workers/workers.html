@@ -1,0 +1,65 @@
+<div ng-controller="WorkersCtrl">
+
+    <h1>Radnici</h1>
+
+    <div>        
+        <div class="btn-group float-right" style="margin-bottom:5px">
+			<button ng-disabled="pageNum == 0" ng-click="doPage(-1)" class="btn btn-default">Previous</button>
+			<button ng-disabled="pageNum == totalPages-1 " ng-click="doPage(1)" class="btn btn-default">Next</button>
+		</div>
+		<div class="col-3 col-xs-6 col-md-2 col-lg-1 form-group float-right">
+            <select ng-model="rowsPerPage" ng-change="doSearch()" id="rowsPerPage" class="custom-select" name="rowsPerPage">
+                <option value="10" ng-selected="rowsPerPage == 10">10</option>
+                <option value="20" ng-selected="rowsPerPage == 20">20</option>
+                <option value="50" ng-selected="rowsPerPage == 50">50</option>
+            </select>            
+        </div>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="5">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Pretraga radnika"
+                            aria-label="Pretraga radnika" aria-describedby="basic-addon2"
+                            ng-model="searchWorker.nameOrLastName">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button"
+                                ng-click="doSearch(true)">Pretraži</button>
+                            <button class="btn btn-outline-secondary" type="button"
+                                ng-click="doSearch(false)">Reset</button>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Tip ugovora</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="w in workers">
+                <td>{{$index + 1 + pageNum * rowsPerPage}}</td>
+                <td>{{w.name}}</td>
+                <td>{{w.lastName}}</td>
+                <td>{{w.contractType}}</td>
+                <td>
+                    <button type="button" class="btn btn-warning">Izmeni</button>
+                    <button type="button" class="btn btn-danger" ng-click="doDelete(w.id)">Obriši</button>
+                    <button type="button" class="btn btn-info">Pretraži učinke</button>
+                </td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th>#</th>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>

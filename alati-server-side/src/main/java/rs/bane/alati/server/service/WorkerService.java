@@ -2,24 +2,20 @@ package rs.bane.alati.server.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import rs.bane.alati.server.model.Worker;
 
 public interface WorkerService {
 	Worker findOne(Long id);
 
-	List<Worker> findAll();
+	Page<Worker> findAll(int pageNum, int rowsPerPage);
 
 	Worker save(Worker worker);
-
-	List<Worker> save(List<Worker> workers);
 
 	Worker delete(Long id);
 
 	void delete(List<Long> ids);
 
-	List<Worker> findByName(String name);
-	
-	List<Worker> findByLastName(String lastName);
-
-	List<Worker> findByNameAndLastName(String name, String lastName);
+	Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, int pageNum, int rowsPerPage);
 }

@@ -32,7 +32,7 @@ public class TestDada {
 	public void init() {
 		Random rnd = new Random();
 
-		for (int i = 1; i <= 5; i++) {
+		for (int i = 1; i <= 45; i++) {
 			int n = rnd.nextInt(Worker.ContractType.values().length);
 			String ime = "Ime-" + i;
 			String prezime = "Prezime-" + i;
