@@ -11,6 +11,8 @@ public interface WorkerService {
 
 	Page<Worker> findAll(int pageNum, int rowsPerPage);
 
+	List<Worker> findAll();
+
 	Worker save(Worker worker);
 
 	Worker delete(Long id);

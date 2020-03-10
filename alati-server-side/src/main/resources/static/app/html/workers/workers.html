@@ -1,3 +1,10 @@
+<style>
+    .table-hover tbody tr:hover td {
+    background: rgb(172, 154, 0);
+}
+</style>
+
+
 <div ng-controller="WorkersCtrl">
 
     <h1>Radnici</h1>
@@ -41,7 +48,7 @@
                     <th>Ime</th>
                     <th>Prezime</th>
                     <th>Tip ugovora</th>
-                    <th>Akcije</th>
+                    <th style="text-align: center;">Akcije</th>
                 </tr>
             </thead>
 
@@ -51,7 +58,7 @@
                     <td>{{w.name}}</td>
                     <td>{{w.lastName}}</td>
                     <td>{{w.contractType}}</td>
-                    <td>
+                    <td style="text-align: center;">
                         <button type="button" class="btn btn-warning">Izmeni</button>
                         <button type="button" class="btn btn-danger" ng-click="doDelete(w.id)">Obriši</button>
                         <button type="button" class="btn btn-info">Pretraži učinke</button>

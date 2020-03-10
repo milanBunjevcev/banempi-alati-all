@@ -56,6 +56,13 @@ public class ApiWorkerController {
 
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/all")
+	ResponseEntity<List<WorkerDTO>> getWorkersAll() {
+		List<Worker> workers = workerService.findAll();
+
+		return new ResponseEntity<List<WorkerDTO>>(toDTO.convert(workers), HttpStatus.OK);
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	ResponseEntity<WorkerDTO> getWorkers(@PathVariable Long id) {
 

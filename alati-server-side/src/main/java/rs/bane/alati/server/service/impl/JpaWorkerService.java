@@ -31,6 +31,11 @@ public class JpaWorkerService implements WorkerService {
 	}
 
 	@Override
+	public List<Worker> findAll() {
+		return workerRepository.findAll();
+	}
+
+	@Override
 	public Worker save(Worker worker) {
 		return workerRepository.save(worker);
 	}
