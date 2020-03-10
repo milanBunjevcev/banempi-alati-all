@@ -23,7 +23,7 @@ public class Worker {
 	private String name;
 	@Column(nullable = false)
 	private String lastName;
-	@Column(nullable = false)
+	@Column//(nullable = false)
 	@Enumerated
 	private ContractType contractType;
 
