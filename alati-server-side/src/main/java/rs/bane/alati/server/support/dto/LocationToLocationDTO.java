@@ -1,4 +1,4 @@
-package rs.bane.alati.server.support;
+package rs.bane.alati.server.support.dto;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -18,12 +18,12 @@
 
 	<name>alati-server-side</name>
 	<!-- FIXME change it to the project's website -->
-	
+
 
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 		<tomcat.version>7.0.59</tomcat.version>
 	</properties>
 
@@ -55,6 +55,25 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.13</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>4.1.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

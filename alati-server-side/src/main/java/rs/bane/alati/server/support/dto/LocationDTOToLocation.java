@@ -1,4 +1,4 @@
-package rs.bane.alati.server.support;
+package rs.bane.alati.server.support.dto;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

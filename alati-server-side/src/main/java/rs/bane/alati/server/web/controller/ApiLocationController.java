@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.bane.alati.server.model.Location;
 import rs.bane.alati.server.service.LocationService;
-import rs.bane.alati.server.support.LocationDTOToLocation;
-import rs.bane.alati.server.support.LocationToLocationDTO;
+import rs.bane.alati.server.support.dto.LocationDTOToLocation;
+import rs.bane.alati.server.support.dto.LocationToLocationDTO;
 import rs.bane.alati.server.web.dto.LocationDTO;
 
 @RestController

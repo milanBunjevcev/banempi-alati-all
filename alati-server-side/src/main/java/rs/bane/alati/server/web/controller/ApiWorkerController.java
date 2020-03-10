@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.bane.alati.server.model.Worker;
 import rs.bane.alati.server.service.WorkerService;
-import rs.bane.alati.server.support.WorkerDTOToWorker;
-import rs.bane.alati.server.support.WorkerToWorkerDTO;
+import rs.bane.alati.server.support.dto.WorkerDTOToWorker;
+import rs.bane.alati.server.support.dto.WorkerToWorkerDTO;
 import rs.bane.alati.server.web.dto.WorkerDTO;
 
 @RestController
@@ -39,7 +39,7 @@ public class ApiWorkerController {
 	ResponseEntity<List<WorkerDTO>> getWorkers(
 			@RequestParam(value = "nameOrLastName", required = false) String nameOrLastName,
 			@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
-			@RequestParam(value = "rowsPerPage", defaultValue = "1") int rowsPerPage) {
+			@RequestParam(value = "rowsPerPage", defaultValue = "20") int rowsPerPage) {
 
 		Page<Worker> workerPage = null;
 
