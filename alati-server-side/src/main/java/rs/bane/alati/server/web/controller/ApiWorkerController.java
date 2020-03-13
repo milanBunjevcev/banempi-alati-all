@@ -64,7 +64,7 @@ public class ApiWorkerController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	ResponseEntity<WorkerDTO> getWorkers(@PathVariable Long id) {
+	ResponseEntity<WorkerDTO> getWorker(@PathVariable Long id) {
 
 		Worker worker = workerService.findOne(id);
 		if (worker == null) {
