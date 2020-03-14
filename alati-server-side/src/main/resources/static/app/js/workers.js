@@ -1,6 +1,6 @@
 var baneApp = angular.module("baneApp");
 
-baneApp.controller("WorkersCtrl", function ($scope, $http, Excel, $timeout) {
+baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) {
 
 	var urlWorkersApi = "/api/workers"
 

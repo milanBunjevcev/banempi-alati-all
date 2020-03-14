@@ -15,29 +15,33 @@ angular.module('baneApp')
                         a = angular.element(a);
                         if (-1 !== hrefs.indexOf(a.attr('href'))) {
                             a.addClass('active');
+                            scope.trenutnaStrana = a.text();
                         } else {
                             a.removeClass('active');
                         };
+                        if ($location.path() == "/") {
+                            scope.trenutnaStrana = "MENI";
+                        }
                     });
                 });
             }
         }
     }]);
 
-baneApp.controller("Ctrl", function ($scope) {
-    $scope.prikaziDropdown = function () {
-        $("#test").addClass('show');           
-    };
+baneApp.controller("Ctrl", function ($scope, $rootScope) {
+
+    $rootScope.trenutnaStrana = ""; 
+   
 });
 
-baneApp.config(['$routeProvider', function ($routeProvider) {
+baneApp.config(['$routeProvider', function ($routeProvider, $scope) {
     $routeProvider
         .when('/', {
             templateUrl: '/app/html/home.html',
             controller: "HomeCtrl"
         })
-        .when('/workers', {
-            templateUrl: '/app/html/workers/workers.html'
+        .when('/workers-list', {
+            templateUrl: '/app/html/workers/workers-list.html'
         })
         .when('/production', {
             templateUrl: '/app/html/production/production.html'
