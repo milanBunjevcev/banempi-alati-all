@@ -43,6 +43,12 @@ baneApp.config(['$routeProvider', function ($routeProvider, $scope) {
         .when('/workers-list', {
             templateUrl: '/app/html/workers/workers-list.html'
         })
+        .when('/workers-presence', {
+            templateUrl: '/app/html/workers/workers-presence.html'
+        })
+        .when('/workers-presence-week', {
+            templateUrl: '/app/html/workers/workers-presence-week.html'
+        })
         .when('/production', {
             templateUrl: '/app/html/production/production.html'
         })

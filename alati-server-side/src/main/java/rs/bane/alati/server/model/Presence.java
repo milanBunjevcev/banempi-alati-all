@@ -1,33 +1,42 @@
 package rs.bane.alati.server.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table
-public class Presence implements Serializable {
-
-	private static final long serialVersionUID = 753020241989001950L;
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "worker_id", "date" }, name = "uniquePresence") })
+public class Presence {
 
 	@Id
+	@GeneratedValue
+	private Long id;
+
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
-	@Column()
+	@Column
 	private double hours;
 
-	@Id
 	@ManyToOne(optional = false)
 	private Worker worker;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Date getDate() {
 		return date;
@@ -51,6 +60,9 @@ public class Presence implements Serializable {
 
 	public void setWorker(Worker worker) {
 		this.worker = worker;
+		if (!worker.getPrisustva().contains(this)) {
+			worker.getPrisustva().add(this);
+		}
 	}
 
 }

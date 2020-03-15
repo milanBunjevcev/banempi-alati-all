@@ -1,10 +1,16 @@
 package rs.bane.alati.server.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -23,9 +29,11 @@ public class Worker {
 	private String name;
 	@Column(nullable = false)
 	private String lastName;
-	@Column//(nullable = false)
+	@Column // (nullable = false)
 	@Enumerated
 	private ContractType contractType;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "worker", cascade = CascadeType.ALL)
+	private List<Presence> prisustva = new ArrayList<>();
 
 	public Worker() {
 
@@ -93,6 +101,21 @@ public class Worker {
 
 	public void setContractType(ContractType contractType) {
 		this.contractType = contractType;
+	}
+
+	public List<Presence> getPrisustva() {
+		return prisustva;
+	}
+
+	public void setPrisustva(List<Presence> prisustva) {
+		this.prisustva = prisustva;
+	}
+
+	public void addPrisustvo(Presence presence) {
+		if (!presence.getWorker().equals(this)) {
+			presence.setWorker(this);
+		}
+		this.getPrisustva().add(presence);
 	}
 
 }
