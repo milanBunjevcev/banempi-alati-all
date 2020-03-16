@@ -10,6 +10,8 @@ public interface WorkerService {
 	Worker findOne(Long id);
 
 	Page<Worker> findAll(int pageNum, int rowsPerPage);
+	
+	Page<Worker> findAllOrderByLastName(int pageNum, int rowsPerPage);
 
 	List<Worker> findAll();
 

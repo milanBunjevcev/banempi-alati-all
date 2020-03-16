@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import rs.bane.alati.server.model.Worker;
@@ -28,6 +29,11 @@ public class JpaWorkerService implements WorkerService {
 	@Override
 	public Page<Worker> findAll(int pageNum, int rowsPerPage) {
 		return workerRepository.findAll(new PageRequest(pageNum, rowsPerPage));
+	}
+	
+	@Override
+	public Page<Worker> findAllOrderByLastName(int pageNum, int rowsPerPage) {
+		return workerRepository.findAllByOrderByLastNameAsc(new PageRequest(pageNum, rowsPerPage));
 	}
 
 	@Override
@@ -67,7 +73,9 @@ public class JpaWorkerService implements WorkerService {
 			name = "%" + tokens[0] + "%";
 			lastName = "%" + tokens[1] + "%";
 		}
-		return workerRepository.findByNameLikeAndLastNameLike(name, lastName, new PageRequest(pageNum, rowsPerPage));
+		return workerRepository.findByNameLikeAndLastNameLikeByOrderByLastName(name, lastName, new PageRequest(pageNum, rowsPerPage));
 	}
+
+	
 
 }

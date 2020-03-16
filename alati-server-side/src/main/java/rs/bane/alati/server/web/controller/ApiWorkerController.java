@@ -48,9 +48,9 @@ public class ApiWorkerController {
 		if (nameOrLastName != null) {
 			workerPage = workerService.findByNameLikeAndLastNameLike(nameOrLastName, pageNum, rowsPerPage);
 		} else {
-			workerPage = workerService.findAll(pageNum, rowsPerPage);
+			workerPage = workerService.findAllOrderByLastName(pageNum, rowsPerPage);
 		}
-
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("totalPages", Integer.toString(workerPage.getTotalPages()));
 
