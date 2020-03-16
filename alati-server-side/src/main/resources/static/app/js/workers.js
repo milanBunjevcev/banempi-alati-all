@@ -13,6 +13,25 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 	$scope.searchWorker = {};
 	$scope.searchWorker.nameOrLastName = "";
 
+	$scope.ugovori = [];
+	$scope.newWorker = {};
+	$scope.newWorker.name = "";
+	$scope.newWorker.lastName = "";
+	$scope.newWorker.contractType = "";
+
+	var getContractTypes = function () {
+		$http.get(urlWorkersApi + "/contracts").then(
+			function success(result) {
+				$scope.ugovori = result.data;
+			},
+			function error(result) {
+				alert("neuspesno dobavljanje ugovora");
+			}
+		);
+	}
+
+	getContractTypes();
+
 	var getWorkers = function () {
 		var config = { params: {} };
 		if ($scope.searchWorker.nameOrLastName != "") {
@@ -56,6 +75,20 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 			}
 		);
 	};
+
+	$scope.doSave = function () {
+		$http.post(urlWorkersApi, $scope.newWorker).then(
+			function success(result) {
+				$scope.newWorker.name = "";
+				$scope.newWorker.lastName = "";
+				$scope.newWorker.contractType = "";
+				$scope.doSearch(true);
+			},
+			function error(result) {
+				alert("neuspesno dodavanje");
+			}
+		);
+	}
 
 	$scope.exportToExcel = function (tableId) { // ex: '#my-table'
 		var exportHref = Excel.tableToExcel(tableId, 'WireWorkbenchDataExport');
@@ -183,6 +216,8 @@ baneApp.controller("WorkersPresenceCtrl", function ($scope, $http, Excel, $timeo
 
 baneApp.controller("WorkersPresenceWeekCtrl", function ($scope, $http, Excel, $timeout) {
 
+	$scope.prikaziTipUgovora = false;
+
 	var urlWorkersApi = "/api/workers"
 	var urlPresenceApi = "/api/workers/presence"
 
@@ -208,6 +243,15 @@ baneApp.controller("WorkersPresenceWeekCtrl", function ($scope, $http, Excel, $t
 			var datum = new Date($scope.datum1.getFullYear(), $scope.datum1.getMonth(), $scope.datum1.getDate() + i);
 			$scope.dani.push(datum);
 		}
+	}
+
+	$scope.brojKolona = function () {
+		var n = $scope.dani.length;
+		n += 3;
+		if ($scope.prikaziTipUgovora) {
+			n += 1;
+		}
+		return n;
 	}
 
 	var updatePresences = async function (i) {

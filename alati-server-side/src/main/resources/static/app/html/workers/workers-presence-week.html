@@ -15,6 +15,13 @@
 
 
     <div>
+        <div class="form-check float-left">
+            <br>
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="checkedValue" ng-model="prikaziTipUgovora">
+                Prikaži tip ugovora
+            </label>
+        </div>
         <div class="col-3 col-xs-6 col-md-2 col-lg-1 form-group float-right">
             <select ng-model="rowsPerPage" ng-change="doSearch()" id="rowsPerPage" class="custom-select"
                 name="rowsPerPage">
@@ -40,7 +47,7 @@
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th colspan="{{dani.length+4}}">
+                    <th colspan="{{brojKolona()}}">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Pretraga radnika"
                                 aria-label="Pretraga radnika" aria-describedby="basic-addon2"
@@ -66,7 +73,7 @@
                     <th>#</th>
                     <th>Ime</th>
                     <th>Prezime</th>
-                    <th>Tip ugovora</th>
+                    <th ng-show="prikaziTipUgovora">Tip ugovora</th>
                     <th style="text-align: center;" ng-repeat="d in dani">{{d.getDate()+"/"+d.getMonth()}}</th>
                     <th style="text-align: center;">
                         SUM
@@ -79,7 +86,7 @@
                     <td>{{$index + 1 + pageNum * rowsPerPage}}</td>
                     <td>{{w.name}}</td>
                     <td>{{w.lastName}}</td>
-                    <td>{{w.contractType}}</td>
+                    <td ng-show="prikaziTipUgovora">{{w.contractType}}</td>
                     <td style="text-align: center;" ng-repeat="d in dani">
                         <span>{{w.presences[$index].hours}}</span>
                     </td>
@@ -91,7 +98,7 @@
 
             <tfoot class="thead-dark">
                 <tr>
-                    <th colspan="{{dani.length+4}}"></th>
+                    <th colspan="{{brojKolona()}}"></th>
                     <th>
                         <div class="btn-group float-right" style="margin-bottom:5px">
                             <button ng-disabled="pageNum == 0" ng-click="doPage(-1)"

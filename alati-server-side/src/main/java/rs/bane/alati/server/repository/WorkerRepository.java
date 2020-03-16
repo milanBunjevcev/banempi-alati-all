@@ -23,6 +23,6 @@ public interface WorkerRepository extends JpaRepository<Worker, Long> {
 			+ "(:lastName IS NULL or w.name like :lastName ) AND "
 			+ "(:name IS NULL or w.lastName like :name )"
 			+ ")")
-	Page<Worker> findByNameLikeAndLastNameLike(@Param("name") String name, @Param("lastName") String lastName, Pageable pageRequest);
+	Page<Worker> findByNameLikeAndLastNameLike(@Param("name") String name, @Param("lastName") String lastName, Pageable pageRequest);	
 
 }

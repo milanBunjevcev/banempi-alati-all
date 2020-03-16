@@ -20,4 +20,5 @@ public interface WorkerService {
 	void delete(List<Long> ids);
 
 	Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, int pageNum, int rowsPerPage);
+
 }

@@ -16,11 +16,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "lastName" }, name = "uniqueWorker") })
-public class Worker {
-
-	public enum ContractType {
-		CONTRACT_3_MONTHS, NO_CONTRACT
-	}
+public class Worker {	
 
 	@Id
 	@GeneratedValue
@@ -36,7 +32,7 @@ public class Worker {
 	private List<Presence> prisustva = new ArrayList<>();
 
 	public Worker() {
-
+		
 	}
 
 	public Worker(String name, String lastName, ContractType contractType) {

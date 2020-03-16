@@ -10,6 +10,45 @@
     <h1>Lista radnika</h1>
     <button class="btn btn-primary" ng-click="exportToExcel('#tableToExport')">Export to Excel</button>
 
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#dodavanjeRadnika">Dodaj novog
+        radnika</button>
+
+    <div class="modal fade" id="dodavanjeRadnika" tabindex="-1" role="dialog" aria-labelledby="dodavanjeRadnikaLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <span>Dodavanje novog radnika</span>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="ime">Ime radnika:</label>
+                            <input id="ime" class="form-control" type="text" ng-model="newWorker.name">
+                        </div>
+                        <div class="form-group">
+                            <label for="prezime">Prezime radnika:</label>
+                            <input id="prezime" class="form-control" type="text" ng-model="newWorker.lastName">
+                        </div>
+                        <div class="form-group">
+                            <label for="ugovor">Tip ugovora:</label>
+                            <select class="form-control" id="ugovor" ng-model="newWorker.contractType">
+                                <option ng-repeat="u in ugovori">{{u}}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+                    <button type="button" class="btn btn-primary" ng-click="doSave()">Sačuvaj radnika</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div>
         <div class="col-3 col-xs-6 col-md-2 col-lg-1 form-group float-right">
             <select ng-model="rowsPerPage" ng-change="doSearch()" id="rowsPerPage" class="custom-select"

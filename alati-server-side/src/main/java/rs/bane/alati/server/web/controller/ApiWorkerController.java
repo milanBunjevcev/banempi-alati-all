@@ -1,5 +1,6 @@
 package rs.bane.alati.server.web.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.bane.alati.server.model.ContractType;
 import rs.bane.alati.server.model.Worker;
 import rs.bane.alati.server.service.WorkerService;
 import rs.bane.alati.server.support.dto.WorkerDTOToWorker;
@@ -61,6 +63,13 @@ public class ApiWorkerController {
 		List<Worker> workers = workerService.findAll();
 
 		return new ResponseEntity<List<WorkerDTO>>(toDTO.convert(workers), HttpStatus.OK);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/contracts")
+	ResponseEntity<List<ContractType>> getContractTypes() {
+		List<ContractType> contractTypes = Arrays.asList(ContractType.values());
+
+		return new ResponseEntity<List<ContractType>>(contractTypes, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")

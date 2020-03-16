@@ -29,7 +29,6 @@ VALUES
  ('Goran', 'Kostić', 1), 
  ('Goran', 'Čabdarić', 1),
  ('Gordana', 'Graora', 0),
- ('Ilić', 'Aleksandra', 0),
  ('Isidora', 'Katanić', 0),
  ('Jelena', 'Milković', 0),
  ('Jelena', 'Radenković', 0), 
