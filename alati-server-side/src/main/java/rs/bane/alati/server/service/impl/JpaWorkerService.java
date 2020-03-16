@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import rs.bane.alati.server.model.Worker;
@@ -26,19 +27,34 @@ public class JpaWorkerService implements WorkerService {
 		return workerRepository.findOne(id);
 	}
 
+	private Direction setDirection(int direction) {
+		Direction sortDirection;
+		if (direction <= 0) {
+			sortDirection = Sort.Direction.ASC;
+		} else {
+			sortDirection = Sort.Direction.DESC;
+		}
+		return sortDirection;
+	}
+
 	@Override
 	public Page<Worker> findAll(int pageNum, int rowsPerPage) {
 		return workerRepository.findAll(new PageRequest(pageNum, rowsPerPage));
 	}
-	
+
 	@Override
-	public Page<Worker> findAllOrderByLastName(int pageNum, int rowsPerPage) {
-		return workerRepository.findAllByOrderByLastNameAsc(new PageRequest(pageNum, rowsPerPage));
+	public Page<Worker> findAllSorted(int pageNum, int rowsPerPage, int direction, String sortBy) {
+		return workerRepository.findAll(new PageRequest(pageNum, rowsPerPage, setDirection(direction), sortBy));
 	}
 
 	@Override
 	public List<Worker> findAll() {
 		return workerRepository.findAll();
+	}
+
+	@Override
+	public List<Worker> findAllSorted(int direction, String sortBy) {
+		return workerRepository.findAll(new Sort(setDirection(direction), sortBy));
 	}
 
 	@Override
@@ -63,7 +79,8 @@ public class JpaWorkerService implements WorkerService {
 	}
 
 	@Override
-	public Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, int pageNum, int rowsPerPage) {
+	public Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, int pageNum, int rowsPerPage,
+			int direction, String sortBy) {
 		String[] tokens = nameOrLastName.split(" ");
 		String name = null;
 		String lastName = null;
@@ -73,9 +90,8 @@ public class JpaWorkerService implements WorkerService {
 			name = "%" + tokens[0] + "%";
 			lastName = "%" + tokens[1] + "%";
 		}
-		return workerRepository.findByNameLikeAndLastNameLikeByOrderByLastName(name, lastName, new PageRequest(pageNum, rowsPerPage));
+		return workerRepository.findByNameLikeAndLastNameLikeByOrderByLastName(name, lastName,
+				new PageRequest(pageNum, rowsPerPage, setDirection(direction), sortBy));
 	}
-
-	
 
 }

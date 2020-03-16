@@ -1,11 +1,15 @@
 package rs.bane.alati.server.web.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import rs.bane.alati.server.model.ContractType;
 
 public class WorkerDTO {
 
 	private Long id;
+	@NotBlank
 	private String name;
+	@NotBlank
 	private String lastName;
 	private ContractType contractType;
 

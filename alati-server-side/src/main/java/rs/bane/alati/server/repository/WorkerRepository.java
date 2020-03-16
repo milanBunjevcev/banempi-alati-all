@@ -24,7 +24,5 @@ public interface WorkerRepository extends JpaRepository<Worker, Long> {
 			+ "(:name IS NULL or w.lastName like :name )"
 			+ ")")
 	Page<Worker> findByNameLikeAndLastNameLikeByOrderByLastName(@Param("name") String name, @Param("lastName") String lastName, Pageable pageRequest);
-
-	Page<Worker> findAllByOrderByLastNameAsc(Pageable pageRequest);	
-
+	
 }

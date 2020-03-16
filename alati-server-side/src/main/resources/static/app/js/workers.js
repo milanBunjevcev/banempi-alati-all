@@ -79,15 +79,21 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 	$scope.doSave = function () {
 		$http.post(urlWorkersApi, $scope.newWorker).then(
 			function success(result) {
-				$scope.newWorker.name = "";
-				$scope.newWorker.lastName = "";
-				$scope.newWorker.contractType = "";
+				$scope.doResetNewWorkerFields();
 				$scope.doSearch(true);
+				alert("uspesno dodavanje");
+				$('#dodavanjeRadnika').modal('hide');
 			},
 			function error(result) {
 				alert("neuspesno dodavanje");
 			}
 		);
+	}
+
+	$scope.doResetNewWorkerFields = function () {
+		$scope.newWorker.name = "";
+		$scope.newWorker.lastName = "";
+		$scope.newWorker.contractType = "";
 	}
 
 	$scope.exportToExcel = function (tableId) { // ex: '#my-table'

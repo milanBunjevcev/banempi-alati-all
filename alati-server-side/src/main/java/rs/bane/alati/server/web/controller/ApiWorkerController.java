@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,16 +42,19 @@ public class ApiWorkerController {
 	ResponseEntity<List<WorkerDTO>> getWorkers(
 			@RequestParam(value = "nameOrLastName", required = false) String nameOrLastName,
 			@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
-			@RequestParam(value = "rowsPerPage", defaultValue = "20") int rowsPerPage) {
+			@RequestParam(value = "rowsPerPage", defaultValue = "20") int rowsPerPage,
+			@RequestParam(value = "sortDirection", defaultValue = "-1") int sortDirection,
+			@RequestParam(value = "sortBy", defaultValue = "lastName") String sortBy) {
 
 		Page<Worker> workerPage = null;
 
 		if (nameOrLastName != null) {
-			workerPage = workerService.findByNameLikeAndLastNameLike(nameOrLastName, pageNum, rowsPerPage);
+			workerPage = workerService.findByNameLikeAndLastNameLike(nameOrLastName, pageNum, rowsPerPage,
+					sortDirection, sortBy);
 		} else {
-			workerPage = workerService.findAllOrderByLastName(pageNum, rowsPerPage);
+			workerPage = workerService.findAllSorted(pageNum, rowsPerPage, sortDirection, sortBy);
 		}
-		
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("totalPages", Integer.toString(workerPage.getTotalPages()));
 
@@ -59,9 +63,11 @@ public class ApiWorkerController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/all")
-	ResponseEntity<List<WorkerDTO>> getWorkersAll() {
-		List<Worker> workers = workerService.findAll();
+	ResponseEntity<List<WorkerDTO>> getWorkersAll(
+			@RequestParam(value = "sortDirection", defaultValue = "-1") int sortDirection,
+			@RequestParam(value = "sortBy", defaultValue = "lastName") String sortBy) {
 
+		List<Worker> workers = workerService.findAllSorted(sortDirection, sortBy);
 		return new ResponseEntity<List<WorkerDTO>>(toDTO.convert(workers), HttpStatus.OK);
 	}
 
@@ -84,7 +90,7 @@ public class ApiWorkerController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	ResponseEntity<WorkerDTO> add(@RequestBody WorkerDTO newWorker) {
+	ResponseEntity<WorkerDTO> add(@RequestBody @Validated WorkerDTO newWorker) {
 
 		Worker savedWorker = workerService.save(toWorker.convert(newWorker));
 
@@ -104,7 +110,7 @@ public class ApiWorkerController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
-	ResponseEntity<WorkerDTO> edit(@PathVariable Long id, @RequestBody WorkerDTO worker) {
+	ResponseEntity<WorkerDTO> edit(@PathVariable Long id, @RequestBody @Validated WorkerDTO worker) {
 
 		if (!id.equals(worker.getId())) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
