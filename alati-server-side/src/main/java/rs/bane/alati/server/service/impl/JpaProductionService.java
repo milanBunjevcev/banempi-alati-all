@@ -20,7 +20,7 @@ public class JpaProductionService implements ProductionService {
 
 	@Override
 	public Production findOne(Long id) {
-		return productionRepository.getOne(id);
+		return productionRepository.findOne(id);
 	}
 
 	@Override
