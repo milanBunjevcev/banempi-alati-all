@@ -16,23 +16,30 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "lastName" }, name = "uniqueWorker") })
-public class Worker {	
+public class Worker {
 
 	@Id
 	@GeneratedValue
 	private Long id;
+
 	@Column(nullable = false)
 	private String name;
+
 	@Column(nullable = false)
 	private String lastName;
-	@Column // (nullable = false)
+
+	@Column(nullable = false)
 	@Enumerated
 	private ContractType contractType;
+
+	@Column(nullable = false)
+	private boolean active = true;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "worker", cascade = CascadeType.ALL)
 	private List<Presence> prisustva = new ArrayList<>();
 
 	public Worker() {
-		
+
 	}
 
 	public Worker(String name, String lastName, ContractType contractType) {
@@ -97,6 +104,14 @@ public class Worker {
 
 	public void setContractType(ContractType contractType) {
 		this.contractType = contractType;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public List<Presence> getPrisustva() {

@@ -19,6 +19,7 @@ public class WorkerDTOToWorker implements Converter<WorkerDTO, Worker> {
 		}
 
 		Worker worker = new Worker(dto.getId(), dto.getName(), dto.getLastName(), dto.getContractType());
+		worker.setActive(dto.isActive());
 
 		return worker;
 	}

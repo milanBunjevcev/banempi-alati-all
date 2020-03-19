@@ -24,6 +24,7 @@ public class WorkerToWorkerDTO implements Converter<Worker, WorkerDTO> {
 		dto.setName(source.getName());
 		dto.setLastName(source.getLastName());
 		dto.setContractType(source.getContractType());
+		dto.setActive(source.isActive());
 
 		return dto;
 	}

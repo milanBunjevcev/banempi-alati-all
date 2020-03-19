@@ -12,6 +12,7 @@ public class WorkerDTO {
 	@NotBlank
 	private String lastName;
 	private ContractType contractType;
+	private boolean active;
 
 	public Long getId() {
 		return id;
@@ -43,6 +44,14 @@ public class WorkerDTO {
 
 	public void setContractType(ContractType contractType) {
 		this.contractType = contractType;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }
