@@ -29,7 +29,7 @@ WHEN pogon = 'glaèara i farbara' THEN 14
         '2017-01-1' as vreme_unosa_ucinka
  from DNEVNI_UCINAK
  where (datum >= '2017-01-1') and
-       (datum <= '2019-12-31');
+       (datum <= '2020-12-31');
 	   
 	   /*
 		nakon toga export as MySQL insert scriptu i ubaciti u novu bazu

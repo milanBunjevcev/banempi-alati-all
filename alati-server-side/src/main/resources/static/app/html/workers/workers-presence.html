@@ -27,6 +27,13 @@
             <input type="date" name="Date" id="inputDate" class="form-control" ng-model="datum"
                 ng-change="doSearch(true)">
         </div>
+        <div class="float-right" style="margin-right: 2ch;">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="checkedValue" ng-model="prikaziSamoAktivne"
+                    ng-change="doSearch(true)">
+                Prikaži samo <br> aktivne radnike
+            </label>
+        </div>
     </div>
 
     <div id="tableToExport">

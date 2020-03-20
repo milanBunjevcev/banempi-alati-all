@@ -19,6 +19,8 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 	$scope.newWorker.lastName = "";
 	$scope.newWorker.contractType = "";
 
+	$scope.prikaziSamoAktivne = true;
+
 	var getContractTypes = function () {
 		$http.get(urlWorkersApi + "/contracts").then(
 			function success(result) {
@@ -39,6 +41,8 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 		}
 		config.params.pageNum = $scope.pageNum;
 		config.params.rowsPerPage = $scope.rowsPerPage;
+		config.params.active = $scope.prikaziSamoAktivne;
+
 		$http.get(urlWorkersApi, config).then(
 			function success(result) {
 				$scope.workers = result.data;
@@ -90,6 +94,29 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 		);
 	}
 
+	$scope.changeActive = function (id) {
+		var editedWorker = {};
+
+		$http.get(urlWorkersApi + "/" + id).then(
+			function success(result) {
+				editedWorker = result.data;
+
+				editedWorker.active = !(editedWorker.active);
+
+				$http.put(urlWorkersApi + "/" + id, editedWorker).then(
+					function success(result) {
+						$scope.doSearch(true);
+					},
+					function error(result) {
+						alert("neuspesna izmena");
+					});
+			},
+			function error(result) {
+				alert("neuspesna izmena");
+			}
+		);
+	}
+
 	$scope.doResetNewWorkerFields = function () {
 		$scope.newWorker.name = "";
 		$scope.newWorker.lastName = "";
@@ -118,6 +145,8 @@ baneApp.controller("WorkersPresenceCtrl", function ($scope, $http, Excel, $timeo
 
 	$scope.searchWorker = {};
 	$scope.searchWorker.nameOrLastName = "";
+
+	$scope.prikaziSamoAktivne = true;
 
 	var updatePresences = async function (i) {
 		if (i < $scope.workers.length) {
@@ -155,6 +184,8 @@ baneApp.controller("WorkersPresenceCtrl", function ($scope, $http, Excel, $timeo
 		}
 		config.params.pageNum = $scope.pageNum;
 		config.params.rowsPerPage = $scope.rowsPerPage;
+		config.params.active = $scope.prikaziSamoAktivne;
+
 		$http.get(urlWorkersApi, config).then(
 			function success(result) {
 				$scope.workers = result.data;
@@ -242,6 +273,8 @@ baneApp.controller("WorkersPresenceWeekCtrl", function ($scope, $http, Excel, $t
 	$scope.searchWorker = {};
 	$scope.searchWorker.nameOrLastName = "";
 
+	$scope.prikaziSamoAktivne = true;
+
 	$scope.azurirajDatume = function () {
 		var razlika = ($scope.datum2 - $scope.datum1) / 86400000;
 		$scope.dani = [];
@@ -310,6 +343,8 @@ baneApp.controller("WorkersPresenceWeekCtrl", function ($scope, $http, Excel, $t
 		}
 		config.params.pageNum = $scope.pageNum;
 		config.params.rowsPerPage = $scope.rowsPerPage;
+		config.params.active = $scope.prikaziSamoAktivne;
+
 		$http.get(urlWorkersApi, config).then(
 			function success(result) {
 				$scope.workers = result.data;

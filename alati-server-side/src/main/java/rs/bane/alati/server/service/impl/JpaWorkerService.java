@@ -38,23 +38,23 @@ public class JpaWorkerService implements WorkerService {
 	}
 
 	@Override
-	public Page<Worker> findAll(int pageNum, int rowsPerPage) {
-		return workerRepository.findAll(new PageRequest(pageNum, rowsPerPage));
-	}
-
-	@Override
 	public Page<Worker> findAllSorted(int pageNum, int rowsPerPage, int direction, String sortBy) {
 		return workerRepository.findAll(new PageRequest(pageNum, rowsPerPage, setDirection(direction), sortBy));
 	}
 
 	@Override
-	public List<Worker> findAll() {
-		return workerRepository.findAll();
+	public Page<Worker> findAllSortedByActiveTrue(int pageNum, int rowsPerPage, int direction, String sortBy) {
+		return workerRepository.findByActiveTrue(new PageRequest(pageNum, rowsPerPage, setDirection(direction), sortBy));
 	}
 
 	@Override
 	public List<Worker> findAllSorted(int direction, String sortBy) {
 		return workerRepository.findAll(new Sort(setDirection(direction), sortBy));
+	}
+
+	@Override
+	public List<Worker> findAllSortedByActiveTrue(int direction, String sortBy) {
+		return workerRepository.findByActiveTrue(new Sort(setDirection(direction), sortBy));
 	}
 
 	@Override
@@ -79,8 +79,8 @@ public class JpaWorkerService implements WorkerService {
 	}
 
 	@Override
-	public Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, int pageNum, int rowsPerPage,
-			int direction, String sortBy) {
+	public Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, boolean active, int pageNum,
+			int rowsPerPage, int direction, String sortBy) {
 		String[] tokens = nameOrLastName.split(" ");
 		String name = null;
 		String lastName = null;
@@ -90,7 +90,7 @@ public class JpaWorkerService implements WorkerService {
 			name = "%" + tokens[0] + "%";
 			lastName = "%" + tokens[1] + "%";
 		}
-		return workerRepository.findByNameLikeAndLastNameLikeByOrderByLastName(name, lastName,
+		return workerRepository.findByNameLikeAndLastNameLikeByOrderByLastName(name, lastName, active,
 				new PageRequest(pageNum, rowsPerPage, setDirection(direction), sortBy));
 	}
 

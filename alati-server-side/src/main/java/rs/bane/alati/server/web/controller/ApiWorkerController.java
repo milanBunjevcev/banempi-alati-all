@@ -44,15 +44,21 @@ public class ApiWorkerController {
 			@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
 			@RequestParam(value = "rowsPerPage", defaultValue = "20") int rowsPerPage,
 			@RequestParam(value = "sortDirection", defaultValue = "-1") int sortDirection,
-			@RequestParam(value = "sortBy", defaultValue = "lastName") String sortBy) {
+			@RequestParam(value = "sortBy", defaultValue = "lastName") String sortBy,
+			@RequestParam(value = "active", defaultValue = "false") boolean active) {
 
 		Page<Worker> workerPage = null;
 
 		if (nameOrLastName != null) {
-			workerPage = workerService.findByNameLikeAndLastNameLike(nameOrLastName, pageNum, rowsPerPage,
+			workerPage = workerService.findByNameLikeAndLastNameLike(nameOrLastName, active, pageNum, rowsPerPage,
 					sortDirection, sortBy);
 		} else {
-			workerPage = workerService.findAllSorted(pageNum, rowsPerPage, sortDirection, sortBy);
+			if (active) {
+				workerPage = workerService.findAllSortedByActiveTrue(pageNum, rowsPerPage, sortDirection, sortBy);
+			}
+			if (!active) {
+				workerPage = workerService.findAllSorted(pageNum, rowsPerPage, sortDirection, sortBy);
+			}
 		}
 
 		HttpHeaders headers = new HttpHeaders();

@@ -1,5 +1,6 @@
 package rs.bane.alati.server.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -29,13 +30,13 @@ public class JpaProductionService implements ProductionService {
 	}
 
 	@Override
-	public Production save(Production production) {
-		return productionRepository.save(production);
+	public List<Production> findByDatumUcinkaBetween(Date datumUcinka1, Date datumUcinka2) {
+		return productionRepository.findByDatumUcinkaBetween(datumUcinka1, datumUcinka2);
 	}
 
 	@Override
-	public List<Production> save(List<Production> productions) {
-		return productionRepository.save(productions);
+	public Production save(Production production) {
+		return productionRepository.save(production);
 	}
 
 	@Override
@@ -45,13 +46,6 @@ public class JpaProductionService implements ProductionService {
 			productionRepository.delete(id);
 		}
 		return toDelete;
-	}
-
-	@Override
-	public void delete(List<Long> ids) {
-		for (Long id : ids) {
-			productionRepository.delete(id);
-		}
 	}
 
 }

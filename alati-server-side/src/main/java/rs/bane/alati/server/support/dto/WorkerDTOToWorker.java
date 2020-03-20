@@ -3,14 +3,19 @@ package rs.bane.alati.server.support.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import rs.bane.alati.server.model.Worker;
+import rs.bane.alati.server.service.WorkerService;
 import rs.bane.alati.server.web.dto.WorkerDTO;
 
 @Component
 public class WorkerDTOToWorker implements Converter<WorkerDTO, Worker> {
+
+	@Autowired
+	private WorkerService workerService;
 
 	@Override
 	public Worker convert(WorkerDTO dto) {
@@ -18,8 +23,18 @@ public class WorkerDTOToWorker implements Converter<WorkerDTO, Worker> {
 			return null;
 		}
 
-		Worker worker = new Worker(dto.getId(), dto.getName(), dto.getLastName(), dto.getContractType());
-		worker.setActive(dto.isActive());
+		Worker worker = null;
+
+		if (dto.getId() != null) {
+			worker = workerService.findOne(dto.getId());
+			worker.setActive(dto.isActive());
+		} else {
+			worker = new Worker();
+		}
+
+		worker.setName(dto.getName());
+		worker.setLastName(dto.getLastName());
+		worker.setContractType(dto.getContractType());
 
 		return worker;
 	}

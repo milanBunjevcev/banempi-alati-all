@@ -15,7 +15,7 @@ public class LocationDTOToLocation implements Converter<LocationDTO, Location> {
 		if (dto == null) {
 			return null;
 		}
-
+		// TODO srediti da koristi service
 		Location location = new Location();
 
 		location.setId(dto.getId());

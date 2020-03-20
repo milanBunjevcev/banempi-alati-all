@@ -9,13 +9,17 @@ import rs.bane.alati.server.model.Worker;
 public interface WorkerService {
 	Worker findOne(Long id);
 
-	Page<Worker> findAll(int pageNum, int rowsPerPage);
+//	Page<Worker> findAll(int pageNum, int rowsPerPage);
 	
 	Page<Worker> findAllSorted(int pageNum, int rowsPerPage, int direction, String sortBy);
+	
+	Page<Worker> findAllSortedByActiveTrue(int pageNum, int rowsPerPage, int direction, String sortBy);
 
-	List<Worker> findAll();
+//	List<Worker> findAll();
 	
 	List<Worker> findAllSorted(int direction, String sortBy);
+	
+	List<Worker> findAllSortedByActiveTrue(int direction, String sortBy);
 
 	Worker save(Worker worker);
 
@@ -23,6 +27,6 @@ public interface WorkerService {
 
 	void delete(List<Long> ids);
 
-	Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, int pageNum, int rowsPerPage, int direction, String sortBy);
+	Page<Worker> findByNameLikeAndLastNameLike(String nameOrLastName, boolean active, int pageNum, int rowsPerPage, int direction, String sortBy);
 
 }

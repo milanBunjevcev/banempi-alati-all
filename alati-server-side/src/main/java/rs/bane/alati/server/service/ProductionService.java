@@ -1,5 +1,6 @@
 package rs.bane.alati.server.service;
 
+import java.util.Date;
 import java.util.List;
 
 import rs.bane.alati.server.model.Production;
@@ -9,12 +10,10 @@ public interface ProductionService {
 
 	List<Production> findAll();
 
+	List<Production> findByDatumUcinkaBetween(Date datumUcinka1, Date datumUcinka2);
+
 	Production save(Production production);
 
-	List<Production> save(List<Production> productions);
-
 	Production delete(Long id);
-
-	void delete(List<Long> ids);
 
 }

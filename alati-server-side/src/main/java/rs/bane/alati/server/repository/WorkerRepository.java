@@ -1,7 +1,10 @@
 package rs.bane.alati.server.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +25,16 @@ public interface WorkerRepository extends JpaRepository<Worker, Long> {
 			+ "("
 			+ "(:lastName IS NULL or w.name like :lastName ) AND "
 			+ "(:name IS NULL or w.lastName like :name )"
+			+ ") AND "
+			+ "("
+			+ ":active = w.active"
 			+ ")")
-	Page<Worker> findByNameLikeAndLastNameLikeByOrderByLastName(@Param("name") String name, @Param("lastName") String lastName, Pageable pageRequest);
+	Page<Worker> findByNameLikeAndLastNameLikeByOrderByLastName(
+			@Param("name") String name, @Param("lastName") String lastName,
+			@Param("active") boolean active, Pageable pageRequest);
+
+	Page<Worker> findByActiveTrue(Pageable pageRequest);
+
+	List<Worker> findByActiveTrue(Sort sort);
 	
 }

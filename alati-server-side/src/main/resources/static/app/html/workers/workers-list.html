@@ -42,7 +42,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="doResetNewWorkerFields()">Odustani</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        ng-click="doResetNewWorkerFields()">Odustani</button>
                     <button type="button" class="btn btn-primary" ng-click="doSave()">Sačuvaj radnika</button>
                 </div>
             </div>
@@ -57,6 +58,13 @@
                 <option value="20" ng-selected="rowsPerPage == 20">20</option>
                 <option value="50" ng-selected="rowsPerPage == 50">50</option>
             </select>
+        </div>
+        <div class="float-right">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="checkedValue" ng-model="prikaziSamoAktivne"
+                    ng-change="doSearch(true)">
+                Prikaži samo <br> aktivne radnike
+            </label>
         </div>
     </div>
 
@@ -88,8 +96,8 @@
                 </tr>
                 <tr>
                     <th>#</th>
-                    <th>Ime</th>
                     <th>Prezime</th>
+                    <th>Ime</th>
                     <th>Tip ugovora</th>
                     <th style="text-align: center;">Akcije</th>
                 </tr>
@@ -98,13 +106,15 @@
             <tbody>
                 <tr ng-repeat="w in workers">
                     <td>{{$index + 1 + pageNum * rowsPerPage}}</td>
-                    <td>{{w.name}}</td>
                     <td>{{w.lastName}}</td>
+                    <td>{{w.name}}</td>
                     <td>{{w.contractType}}</td>
                     <td style="text-align: center;">
                         <button type="button" class="btn btn-warning">Izmeni</button>
                         <button type="button" class="btn btn-danger" ng-click="doDelete(w.id)">Obriši</button>
                         <button type="button" class="btn btn-info">Pretraži učinke</button>
+                        <button type="button" ng-click="changeActive(w.id)"
+                            ng-class="w.active ? 'btn btn-success' : 'btn btn-default'">{{w.active ? "&nbsp&nbspAktivan&nbsp&nbsp" : "Neaktivan"}}</button>
                     </td>
                 </tr>
             </tbody>

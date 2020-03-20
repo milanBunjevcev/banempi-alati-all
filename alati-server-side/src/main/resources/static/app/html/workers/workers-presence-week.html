@@ -16,10 +16,15 @@
 
     <div>
         <div class="form-check float-left">
-            <br>
             <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" value="checkedValue" ng-model="prikaziTipUgovora">
                 Prikaži tip ugovora
+            </label>
+            <br>
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="checkedValue" ng-model="prikaziSamoAktivne"
+                    ng-change="doSearch(true)">
+                Prikaži samo aktivne radnike
             </label>
         </div>
         <div class="col-3 col-xs-6 col-md-2 col-lg-1 form-group float-right">
