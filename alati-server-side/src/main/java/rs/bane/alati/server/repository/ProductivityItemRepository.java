@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import rs.bane.alati.server.model.Production;
+import rs.bane.alati.server.model.ProductivityItem;
 
 @Repository
-public interface ProductionRepository extends JpaRepository<Production, Long> {
+public interface ProductivityItemRepository extends JpaRepository<ProductivityItem, Long> {
 
-	List<Production> findByDatumUcinkaBetween(Date datumUcinka1, Date datumUcinka2);
+	List<ProductivityItem> findByDateBetween(Date date1, Date date2);
 
 }

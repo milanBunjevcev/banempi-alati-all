@@ -60,8 +60,8 @@ public class Presence {
 
 	public void setWorker(Worker worker) {
 		this.worker = worker;
-		if (!worker.getPrisustva().contains(this)) {
-			worker.getPrisustva().add(this);
+		if (!worker.getPresences().contains(this)) {
+			worker.getPresences().add(this);
 		}
 	}
 

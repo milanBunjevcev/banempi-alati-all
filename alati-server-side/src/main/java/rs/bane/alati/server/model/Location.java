@@ -1,5 +1,6 @@
 package rs.bane.alati.server.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,20 +21,7 @@ public class Location {
 	private String name;
 
 	@OneToMany(mappedBy = "location")
-	private List<Production> productions;
-
-	public Location() {
-
-	}
-
-	public Location(String name) {
-		this.name = name;
-	}
-
-	public Location(Long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
+	private List<ProductivityItem> productions = new ArrayList<ProductivityItem>();
 
 	@Override
 	public boolean equals(Object obj) {

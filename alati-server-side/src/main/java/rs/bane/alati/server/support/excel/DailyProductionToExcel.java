@@ -7,13 +7,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import rs.bane.alati.server.model.Production;
+import rs.bane.alati.server.model.ProductivityItem;
 
 @Component
-public class DailyProductionToExcel implements Converter<List<Production>, XSSFWorkbook> {
+public class DailyProductionToExcel implements Converter<List<ProductivityItem>, XSSFWorkbook> {
 
 	@Override
-	public XSSFWorkbook convert(List<Production> source) {
+	public XSSFWorkbook convert(List<ProductivityItem> source) {
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet();
 

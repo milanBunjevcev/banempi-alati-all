@@ -36,26 +36,7 @@ public class Worker {
 	private boolean active = true;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "worker", cascade = CascadeType.ALL)
-	private List<Presence> prisustva = new ArrayList<>();
-
-	public Worker() {
-
-	}
-
-	public Worker(String name, String lastName, ContractType contractType) {
-		super();
-		this.name = name;
-		this.lastName = lastName;
-		this.contractType = contractType;
-	}
-
-	public Worker(Long id, String name, String lastName, ContractType contractType) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.lastName = lastName;
-		this.contractType = contractType;
-	}
+	private List<Presence> presences = new ArrayList<>();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -114,19 +95,19 @@ public class Worker {
 		this.active = active;
 	}
 
-	public List<Presence> getPrisustva() {
-		return prisustva;
+	public List<Presence> getPresences() {
+		return presences;
 	}
 
-	public void setPrisustva(List<Presence> prisustva) {
-		this.prisustva = prisustva;
+	public void setPresences(List<Presence> prisustva) {
+		this.presences = prisustva;
 	}
 
-	public void addPrisustvo(Presence presence) {
+	public void addPresence(Presence presence) {
 		if (!presence.getWorker().equals(this)) {
 			presence.setWorker(this);
 		}
-		this.getPrisustva().add(presence);
+		this.getPresences().add(presence);
 	}
 
 }
