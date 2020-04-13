@@ -25,12 +25,12 @@ public class LocationToLocationDTO implements Converter<Location, LocationDTO> {
 		return dto;
 	}
 
-	public List<LocationDTO> convert(List<Location> lokacijaList) {
-		List<LocationDTO> lokacije = new ArrayList<LocationDTO>();
-		for (Location l : lokacijaList) {
-			lokacije.add(convert(l));
+	public List<LocationDTO> convert(List<Location> locationList) {
+		List<LocationDTO> dtoList = new ArrayList<LocationDTO>();
+		for (Location l : locationList) {
+			dtoList.add(convert(l));
 		}
-		return lokacije;
+		return dtoList;
 	}
 
 }

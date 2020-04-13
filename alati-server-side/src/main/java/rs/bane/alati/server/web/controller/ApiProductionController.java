@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rs.bane.alati.server.model.ProductivityItem;
 import rs.bane.alati.server.service.ProductivityItemService;
-import rs.bane.alati.server.support.dto.ProductionToProductionDTO;
-import rs.bane.alati.server.web.dto.ProductionDTO;
+import rs.bane.alati.server.support.dto.ProductivityItemToProductivityItemDTO;
+import rs.bane.alati.server.web.dto.ProductivityItemDTO;
 
 @RestController
 @RequestMapping(value = "/api/productions")
@@ -27,20 +27,20 @@ public class ApiProductionController {
 	private ProductivityItemService productionService;
 
 	@Autowired
-	private ProductionToProductionDTO toDto;
+	private ProductivityItemToProductivityItemDTO toDto;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	ResponseEntity<ProductionDTO> getProduction(@PathVariable Long id) {
+	ResponseEntity<ProductivityItemDTO> getProduction(@PathVariable Long id) {
 		ProductivityItem production = productionService.findOne(id);
 		if (production == null) {
-			return new ResponseEntity<ProductionDTO>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<ProductivityItemDTO>(HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<ProductionDTO>(toDto.convert(production), HttpStatus.OK);
+		return new ResponseEntity<ProductivityItemDTO>(toDto.convert(production), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	ResponseEntity<List<ProductionDTO>> getProduction(
+	ResponseEntity<List<ProductivityItemDTO>> getProduction(
 			@RequestParam(value = "datumUcinka1") @DateTimeFormat(iso = ISO.DATE) Date datumUcinka1,
 			@RequestParam(value = "datumUcinka2") @DateTimeFormat(iso = ISO.DATE) Date datumUcinka2) {
 		List<ProductivityItem> productionList = productionService.findByDateBetween(datumUcinka1, datumUcinka2);
