@@ -49,7 +49,7 @@ public class ProductivityItem {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "production_id", "workers_id" }, name = "uniqueRelation") })
+			@UniqueConstraint(columnNames = { "productivity_item_id", "workers_id" }, name = "uniqueRelation") })
 	private List<Worker> workers = new ArrayList<Worker>();
 
 	@ManyToOne(optional = false)
