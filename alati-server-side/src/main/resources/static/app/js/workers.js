@@ -61,9 +61,11 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 		getWorkers();
 	};
 
-	$scope.doSearch = function (bool) {
-		$scope.pageNum = 0;
-		if (bool == false) {
+	$scope.doSearch = function (resetPage, resetParam) {
+		if (resetPage == true) {
+			$scope.pageNum = 0;
+		}
+		if (resetParam == true) {
 			$scope.searchWorker.nameOrLastName = "";
 		}
 		getWorkers();
@@ -84,7 +86,7 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 		$http.post(urlWorkersApi, $scope.newWorker).then(
 			function success(result) {
 				$scope.doResetNewWorkerFields();
-				$scope.doSearch(true);
+				$scope.doSearch(true, true);
 				alert("uspesno dodavanje");
 				$('#dodavanjeRadnika').modal('hide');
 			},
@@ -105,7 +107,7 @@ baneApp.controller("WorkersListCtrl", function ($scope, $http, Excel, $timeout) 
 
 				$http.put(urlWorkersApi + "/" + id, editedWorker).then(
 					function success(result) {
-						$scope.doSearch(true);
+						$scope.doSearch(false, false);
 					},
 					function error(result) {
 						alert("neuspesna izmena");
@@ -205,9 +207,11 @@ baneApp.controller("WorkersPresenceCtrl", function ($scope, $http, Excel, $timeo
 		getWorkers();
 	};
 
-	$scope.doSearch = function (bool) {
-		$scope.pageNum = 0;
-		if (bool == false) {
+	$scope.doSearch = function (resetPage, resetParam) {
+		if (resetPage == true) {
+			$scope.pageNum = 0;
+		}
+		if (resetParam == true) {
 			$scope.searchWorker.nameOrLastName = "";
 		}
 		getWorkers();
@@ -364,9 +368,11 @@ baneApp.controller("WorkersPresenceWeekCtrl", function ($scope, $http, Excel, $t
 		getWorkers();
 	};
 
-	$scope.doSearch = function (bool) {
-		$scope.pageNum = 0;
-		if (bool == false) {
+	$scope.doSearch = function (resetPage, resetParam) {
+		if (resetPage == true) {
+			$scope.pageNum = 0;
+		}
+		if (resetParam == true) {
 			$scope.searchWorker.nameOrLastName = "";
 		}
 		getWorkers();

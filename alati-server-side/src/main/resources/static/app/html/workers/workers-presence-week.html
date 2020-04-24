@@ -23,12 +23,12 @@
             <br>
             <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" value="checkedValue" ng-model="prikaziSamoAktivne"
-                    ng-change="doSearch(true)">
+                    ng-change="doSearch(true, false)">
                 Prikaži samo aktivne radnike
             </label>
         </div>
         <div class="col-3 col-xs-6 col-md-2 col-lg-1 form-group float-right">
-            <select ng-model="rowsPerPage" ng-change="doSearch()" id="rowsPerPage" class="custom-select"
+            <select ng-model="rowsPerPage" ng-change="doSearch(true, false)" id="rowsPerPage" class="custom-select"
                 name="rowsPerPage">
                 <option value="10" ng-selected="rowsPerPage == 10">10</option>
                 <option value="20" ng-selected="rowsPerPage == 20">20</option>
@@ -37,11 +37,11 @@
         </div>
         <div class="float-right">
             <input type="date" name="Date2" id="inputDate2" class="form-control" ng-model="datum2"
-                ng-change="doSearch(true)">
+                ng-change="doSearch(true, false)">
         </div>
         <div class="float-right">
             <input type="date" name="Date1" id="inputDate1" class="form-control" ng-model="datum1"
-                ng-change="doSearch(true)">
+                ng-change="doSearch(true, false)">
         </div>
     </div>
 
@@ -59,9 +59,9 @@
                                 ng-model="searchWorker.nameOrLastName">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button"
-                                    ng-click="doSearch(true)">Pretraži</button>
+                                    ng-click="doSearch(true, false)">Pretraži</button>
                                 <button class="btn btn-outline-secondary" type="button"
-                                    ng-click="doSearch(false)">Reset</button>
+                                    ng-click="doSearch(true, true)">Reset</button>
                             </div>
                         </div>
                     </th>
