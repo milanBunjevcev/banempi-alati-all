@@ -1,0 +1,35 @@
+<div ng-controller="ProductivityInputCtrl">
+	
+    <h1>Unos i pregled učinaka</h1>
+    <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" value="checkedValue" ng-model="hideInputForm">Sakri formu unosa</label>
+
+        <form ng-hide="hideInputForm">            
+            <h3>Unos učinaka</h3>     
+
+            
+
+            <div class="form-inline">
+                
+                
+                
+            </div>            
+            <div class="form-group">
+                <label for="polje3">Opis</label>
+                <input id="polje3" class="form-control" ng-model="newEntity.opis" />
+            </div>
+            <div class="form-group" ng-hide="newEntity.tip == 'obaveštenje'">
+                <label for="polje4">Potreban procenat</label>
+                <input id="polje4" class="form-control" ng-model="newEntity.potrebanProcenat" />
+            </div>
+            <div class="form-group">
+                <label for="s1">Zgrada</label>
+                <select id="s1" class="form-control" ng-model="newEntity.zgradaId">
+                    <option ng-repeat="e in zgrade" value="{{e.id}}">{{e.adresa}}</option>
+                </select>
+            </div>
+    
+            <button class="btn btn-primary" ng-click="doAdd()">Dodaj</button>
+        </form>
+	
+</div>

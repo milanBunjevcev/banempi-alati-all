@@ -49,8 +49,8 @@ baneApp.config(['$routeProvider', function ($routeProvider, $scope) {
         .when('/workers-presence-week', {
             templateUrl: '/app/html/workers/workers-presence-week.html'
         })
-        .when('/production', {
-            templateUrl: '/app/html/production/production.html'
+        .when('/productivity-input', {
+            templateUrl: '/app/html/production/productivity-input.html'
         })
         .otherwise({
             redirectTo: '/'

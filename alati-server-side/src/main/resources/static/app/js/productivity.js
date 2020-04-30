@@ -1,6 +1,6 @@
 var baneApp = angular.module("baneApp");
 
-baneApp.controller("ProductionCtrl", function ($scope, $http, Excel, $timeout) {
+baneApp.controller("ProductivityInputCtrl", function ($scope, $http, Excel, $timeout) {
 
 	var urlWorkersApi = "/api/workers"
 
@@ -31,7 +31,7 @@ baneApp.controller("ProductionCtrl", function ($scope, $http, Excel, $timeout) {
 		);
 	};
 
-	getWorkers();
+	//getWorkers();
 
 	$scope.doPage = function (x) {
 		$scope.pageNum += x;
