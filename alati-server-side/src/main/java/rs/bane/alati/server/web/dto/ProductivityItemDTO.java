@@ -22,6 +22,7 @@ public class ProductivityItemDTO {
 	private List<Long> workerIds = new ArrayList<Long>();
 
 	private Long locationId;
+	private String locationName;
 
 	private Timestamp inputTime;
 	private String enteredBy;
@@ -128,6 +129,14 @@ public class ProductivityItemDTO {
 
 	public void setLocationId(Long locationId) {
 		this.locationId = locationId;
+	}
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
 	}
 
 	public Timestamp getInputTime() {

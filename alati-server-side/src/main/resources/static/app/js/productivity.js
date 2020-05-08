@@ -2,27 +2,33 @@ var baneApp = angular.module("baneApp");
 
 baneApp.controller("ProductivityInputCtrl", function ($scope, $http, Excel, $timeout) {
 
-	var urlWorkersApi = "/api/workers"
+	var urlProductions = "/api/productions"
 
-	$scope.workers = [];
+	$scope.productions = [];
 
 	$scope.pageNum = 0;
 	$scope.totalPages = 1;
 	$scope.rowsPerPage = "20";
 
-	$scope.searchWorker = {};
-	$scope.searchWorker.nameOrLastName = "";
+	$scope.datumUcinka1 = new Date();
+	$scope.datumUcinka2 = $scope.datumUcinka1;
 
-	var getWorkers = function () {
+	$scope.period = false;
+
+	$scope.hideInputForm = false;
+
+	var getProductions = function () {
 		var config = { params: {} };
-		if ($scope.searchWorker.nameOrLastName != "") {
-			config.params.nameOrLastName = $scope.searchWorker.nameOrLastName;
-		}
+
 		config.params.pageNum = $scope.pageNum;
 		config.params.rowsPerPage = $scope.rowsPerPage;
-		$http.get(urlWorkersApi, config).then(
+
+		config.params.datumUcinka1 = $scope.datumUcinka1;
+		config.params.datumUcinka2 = $scope.datumUcinka2;
+
+		$http.get(urlProductions, config).then(
 			function success(result) {
-				$scope.workers = result.data;
+				$scope.productions = result.data;
 				$scope.totalPages = result.headers("totalPages");
 			},
 			function error(result) {
@@ -31,25 +37,26 @@ baneApp.controller("ProductivityInputCtrl", function ($scope, $http, Excel, $tim
 		);
 	};
 
-	//getWorkers();
+	getProductions();
 
 	$scope.doPage = function (x) {
 		$scope.pageNum += x;
-		getWorkers();
+		getProductions();
 	};
 
-	$scope.doSearch = function (bool) {
+	$scope.doSearch = function () {
 		$scope.pageNum = 0;
-		if (bool == false) {
-			$scope.searchWorker.nameOrLastName = "";
+
+		if (!$scope.period) {
+			$scope.datumUcinka2 = $scope.datumUcinka1;
 		}
-		getWorkers();
-	};
+		getProductions();
+	};	
 
 	$scope.doDelete = function (id) {
-		$http.delete(urlWorkersApi + "/" + id).then(
+		$http.delete(urlProductions + "/" + id).then(
 			function success(result) {
-				getWorkers();
+				getProductions();
 			},
 			function error(result) {
 				alert("neuspesno brisanje");

@@ -40,6 +40,7 @@ public class ProductivityItemToProductivityItemDTO implements Converter<Producti
 		dto.setWorkerIds(workerIds);
 
 		dto.setLocationId(source.getLocation().getId());
+		dto.setLocationName(source.getLocation().getName());
 		dto.setInputTime(source.getInputTime());
 		dto.setEnteredBy(source.getEnteredBy());
 
