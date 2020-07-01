@@ -1,0 +1,139 @@
+<style>
+    .table-hover tbody tr:hover td {
+        background: rgb(172, 154, 0);
+    }
+</style>
+
+
+<div ng-controller="WorkersListCtrl">
+
+    <h1>Lista radnika</h1>
+    <button class="btn btn-primary" ng-click="exportToExcel('#tableToExport')">Export to Excel</button>
+
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#dodavanjeRadnika">Dodaj novog
+        radnika</button>
+
+    <div class="modal fade" id="dodavanjeRadnika" tabindex="-1" role="dialog" aria-labelledby="dodavanjeRadnikaLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <span>Dodavanje novog radnika</span>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="ime">Ime radnika:</label>
+                            <input id="ime" class="form-control" type="text" ng-model="newWorker.name">
+                        </div>
+                        <div class="form-group">
+                            <label for="prezime">Prezime radnika:</label>
+                            <input id="prezime" class="form-control" type="text" ng-model="newWorker.lastName">
+                        </div>
+                        <div class="form-group">
+                            <label for="ugovor">Tip ugovora:</label>
+                            <select class="form-control" id="ugovor" ng-model="newWorker.contractType">
+                                <option ng-repeat="u in ugovori">{{u}}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        ng-click="doResetNewWorkerFields()">Odustani</button>
+                    <button type="button" class="btn btn-primary" ng-click="doSave()">Sačuvaj radnika</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="col-3 col-xs-6 col-md-2 col-lg-1 form-group float-right">
+            <select ng-model="rowsPerPage" ng-change="doSearch(true, false)" id="rowsPerPage" class="custom-select"
+                name="rowsPerPage">
+                <option value="10" ng-selected="rowsPerPage == 10">10</option>
+                <option value="20" ng-selected="rowsPerPage == 20">20</option>
+                <option value="50" ng-selected="rowsPerPage == 50">50</option>
+            </select>
+        </div>
+        <div class="float-right">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="checkedValue" ng-model="prikaziSamoAktivne"
+                    ng-change="doSearch(true, false)">
+                Prikaži samo <br> aktivne radnike
+            </label>
+        </div>
+    </div>
+
+    <div id="tableToExport">
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th colspan="4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Pretraga radnika"
+                                aria-label="Pretraga radnika" aria-describedby="basic-addon2"
+                                ng-model="searchWorker.nameOrLastName">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    ng-click="doSearch(true, false)">Pretraži</button>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    ng-click="doSearch(true, true)">Reset</button>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="btn-group float-right" style="margin-bottom:5px">
+                            <button ng-disabled="pageNum == 0" ng-click="doPage(-1)"
+                                class="btn btn-warning">Previous</button>
+                            <button ng-disabled="pageNum == totalPages-1 " ng-click="doPage(1)"
+                                class="btn btn-warning">Next</button>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Prezime</th>
+                    <th>Ime</th>
+                    <th>Tip ugovora</th>
+                    <th style="text-align: center;">Akcije</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="w in workers">
+                    <td>{{$index + 1 + pageNum * rowsPerPage}}</td>
+                    <td>{{w.lastName}}</td>
+                    <td>{{w.name}}</td>
+                    <td>{{w.contractType}}</td>
+                    <td style="text-align: center;">
+                        <button type="button" class="btn btn-warning">Izmeni</button>
+                        <button type="button" class="btn btn-danger" ng-click="doDelete(w.id)">Obriši</button>
+                        <button type="button" class="btn btn-info">Pretraži učinke</button>
+                        <button type="button" ng-click="changeActive(w.id)"
+                            ng-class="w.active ? 'btn btn-success' : 'btn btn-default'">{{w.active ? "&nbsp&nbspAktivan&nbsp&nbsp" : "Neaktivan"}}</button>
+                    </td>
+                </tr>
+            </tbody>
+
+            <tfoot class="thead-dark">
+                <tr>
+                    <th colspan="4"></th>
+                    <th>
+                        <div class="btn-group float-right" style="margin-bottom:5px">
+                            <button ng-disabled="pageNum == 0" ng-click="doPage(-1)"
+                                class="btn btn-warning">Previous</button>
+                            <button ng-disabled="pageNum == totalPages-1 " ng-click="doPage(1)"
+                                class="btn btn-warning">Next</button>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+
+</div>
